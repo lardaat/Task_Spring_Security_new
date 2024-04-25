@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Confirm User Deletion</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    .button-container {
+      text-align: center; /* Center buttons horizontally */
+    }
+
+    button {
+      padding: 8px 20px;
+      margin: 0 auto 10px; /* Add spacing between buttons */
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-size: 16px;
+    }
+
+    .yes-btn {
+      background-color: #4CAF50;
+      color: #fff;
+    }
+
+    .yes-btn:hover {
+      background-color: #45a049;
+    }
+
+    .no-btn {
+      background-color: #f00;
+      color: #fff;
+    }
+
+    .no-btn:hover {
+      background-color: #c00;
+    }
+  </style>
+</head>
+<body>
+<h2>Confirm User Deletion</h2>
+<p>Are you sure you want to delete the user?</p>
+<div class="button-container">
+  <a th:href="@{/admin/users/delete/{id}(id=${user.id})}"a>
+    <button class="yes-btn">Yes</button>
+  </a>
+
+  <a th:href="@{/admin/users}">
+  <button class="no-btn">No</button>
+  </a>
+</div>
+
+</body>
+</html>

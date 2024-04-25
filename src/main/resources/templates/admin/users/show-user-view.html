@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="password"],
+        input[type="submit"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Edit User</h2>
+
+<form th:action="@{/admin/users/edit}" th:object="${user}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <label for="firstName">Имя:</label>
+    <input type="text" id="firstName" th:field="*{firstName}" required />
+
+    <br><br>
+
+    <label for="lastName">Фамилия:</label>
+    <input type="text" id="lastName" th:field="*{lastName}" required />
+
+    <br><br>
+
+    <label for="username">Email:</label>
+    <input type="email" id="username" th:field="*{username}" required />
+
+    <br><br>
+
+    <label for="age">Возраст:</label>
+    <input type="number" id="age" th:field="*{age}" required />
+
+    <br><br>
+
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" name="password" required />
+
+    <br><br>
+
+    <label for="roles">Роли:</label>
+    <select id="roles" name="roles" multiple="multiple" required>
+        <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}" th:selected="${user.roles.contains(role)}">Test Role</option>
+    </select>
+
+    <br><br>
+
+    <input type="submit" value="Обновить">
+</form>
+
+<!--<form th:action="@{/logout}" method="post" class="logout-form">-->
+<!--    <input type="submit" value="Выйти"/>-->
+<!--</form>-->
+
+</body>
+</html>
