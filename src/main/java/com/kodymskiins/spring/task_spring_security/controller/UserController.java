@@ -3,6 +3,7 @@ package com.kodymskiins.spring.task_spring_security.controller;
 import com.kodymskiins.spring.task_spring_security.model.User;
 import com.kodymskiins.spring.task_spring_security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -21,18 +22,27 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/info")
-    public String getCurrentUserInfo(Model model) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
+//    @GetMapping("/info")
+//    public String getCurrentUserInfo(Model model) {
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        String username;
+//        if (principal instanceof UserDetails) {
+//            username = ((UserDetails)principal).getUsername();
+//        } else {
+//            username = principal.toString();
+//        }
+//
+//        User user = userService.findByUsername(username);
+//        model.addAttribute("user", user);
+//        return "user/show-user";
+//    }
 
-        User user = userService.findByUsername(username);
+
+    @GetMapping("/info")
+    public String getCurrentUserInfo(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        User user = userService.findByUsername(userDetails.getUsername());
         model.addAttribute("user", user);
         return "user/show-user";
     }
+
 }
